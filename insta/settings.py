@@ -79,8 +79,13 @@ WSGI_APPLICATION = 'insta.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'insta',
+        'HOST' : '3.35.208.197',
+        'USER' : 'root',
+        'PASSWORD' : 'password',
+        'PORT' :'3306',
+        'OPTIONS' : {'charset' : 'utf8mb4'},
     }
 }
 
