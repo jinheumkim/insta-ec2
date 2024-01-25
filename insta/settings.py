@@ -81,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'insta',
-        'HOST' : '43.202.63.121',
-        'USER' : 'root',
-        'PASSWORD' : 'password',
+        'HOST' : os.environ.get('MYSQL_HOST','localhost'),
+        'USER' : os.environ.get('MYSQL_USER_NAME','admin'),
+        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','default_password'),
         'PORT' :'3306',
         'OPTIONS' : {'charset' : 'utf8mb4'},
     }
