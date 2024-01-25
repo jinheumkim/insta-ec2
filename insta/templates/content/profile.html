@@ -133,7 +133,7 @@
     </div>
 
     <div id = "feed_list" style="width : 100%; min-width : 1000px; display : flex; align-items : center; justify-content : center">
-      <div style="display : flex; flex-direction:row; justify-content : center; flex-wrap : wrap; width : 1000px ">
+      <div style="display : flex; flex-direction:row; justify-content : left; flex-wrap : wrap; width : 1000px ">
         {% for feed in feed_list %}
           <div style="width:300px; height : 300px; margin : 10px 10px 0px 10px; ">
             <div><img style = "width:300px; height : 300px; object-fit : cover;" src = "{% get_media_prefix %}{{ feed.image }}"> </div>
@@ -153,7 +153,7 @@
     </div>
 
     <div id = "bookmark_feed_list" style="width : 100%; min-width : 1000px; display : none; align-items : center; justify-content : center">
-      <div style="display : flex; flex-direction:row; justify-content : center; flex-wrap : wrap; width : 1000px ">
+      <div style="display : flex; flex-direction:row; justify-content : left; flex-wrap : wrap; width : 1000px ">
         {% for feed in bookmark_feed_list %}
           <div style="width:300px; height : 300px; margin : 10px 10px 0px 10px; ">
             <div><img style = "width:300px; height : 300px; object-fit : cover;" src = "{% get_media_prefix %}{{ feed.image }}"> </div>
