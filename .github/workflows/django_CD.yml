@@ -20,6 +20,6 @@ jobs:
           key : ${{secrets.KEY}}
           port : 22
           script : |
-            cd /insta-ec2
+            cd /home/ubuntu/insta-ec2
             git pull
             sudo systemctl restart uwsgi
