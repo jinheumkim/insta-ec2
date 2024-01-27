@@ -1,4 +1,5 @@
-#####  Clone Instagram Project
+
+# Clone Instagram Project
 ----------------------
 ### 기술 스택
 ----------------------
