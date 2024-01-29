@@ -121,6 +121,9 @@ class Profile(APIView):
         feed_list_count = Feed.objects.filter(email = user.email).count()
         following_count = Follow.objects.filter(user_id = user.id).count()
         follower_count = Follow.objects.filter(following_id = user.id).count()
+        login_user = User.objects.filter(email = email).first()
+        profile_image_change = User.objects.filter(email = user.email, nickname = login_user.nickname).exists()
+                
         return render(request, "content/profile.html" , context = dict(user = user, 
                                                                        feed_list = feed_list,
                                                                        like_feed_list = like_feed_list,
@@ -128,6 +131,8 @@ class Profile(APIView):
                                                                        following_count = following_count,
                                                                        feed_list_count = feed_list_count,
                                                                        follower_count = follower_count,
+                                                                       profile_image_change = profile_image_change,
+                                                                       login_user = login_user
                                                                        ))
     
 class UploadReply(APIView):
