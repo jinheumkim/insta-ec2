@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Clone Instagram Project
 
 ### 기술 스택
@@ -44,5 +42,9 @@ Apps
 * 개개인 유저 프로필마다 게시물 수, 팔로워 수, 팔로잉 수 표시
 * 유저 프로필마다 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
 
-### Git CI CD
->>>>>>> c693b2c60a6dcab6c52b6573bcdc81e0e72aa545
+### Git Actions
+---------------------
+##### * Django CI로 VSCODE COMMIT시 파이썬 3.8 3.9버전으로 회원가입과 로그인 테스트 후 성공시 CD 진행시키기 자동화
+##### * Django CD로 aws cloud 서비스로 띄워놓은 ubuntu 서버 접속 후
+##### * cd /home/ubuntu/insta-ec2 ---> git pull ---> sudo systemctl restart uwsgi로 nginx/uwsgi로 상시 띄워놓은 서버에 자동 적용시키기
+
