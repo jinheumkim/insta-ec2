@@ -17,48 +17,90 @@ Apps
  * User
 .
 ├── Insta
+
 │   ├── template
+
 │   │   └── content
+
 │   │   │   └── profile.html
+
 │   │   │   └── search.html
+
 │   │   └── insta
+
 │   │   │   └── main.html
+
 │   │   └── user
+
 │   │   │   └── join.html
+
 │   │   │   └── login.html
+
 │   ├── __init__.py
+
 │   ├── asgi.py
 │   ├── settings.py
+
 │   ├── settings_local.py
+
 │   ├── urls.py
+
 │   └── wsgi.py
+
 ├── media
+
 ├── content
+
 │   ├── __init__.py
+
 │   ├── admin.py
+
 │   ├── apps.py
+
 │   ├── migrations
+
 │   │   └── __init__.py
+
 │   ├── models.py
+
 │   ├── tests.py
+
 │   ├── urls.py
+
 │   └── views.py
+
 ├── user
+
 │   ├── __init__.py
+
 │   ├── admin.py
+
 │   ├── apps.py
+
 │   ├── migrations
+
 │   │   └── __init__.py
+
 │   ├── models.py
+
 │   ├── tests.py
+
 │   ├── urls.py
+
 │   └── views.py
+
 ├── requirements.txt
+
 ├── manage.py
+
 ├── venv
+
 ├── db.sqlite3
+
 └── .github \ workflows
+     
      ├── django_CI.yml
+
      └── django_CD.yml
 ### 구현 기능
 --------------------
