@@ -42,9 +42,50 @@ Apps
 * 개개인 유저 프로필마다 게시물 수, 팔로워 수, 팔로잉 수 표시
 * 유저 프로필마다 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
 
+### Aws로 ubuntu 서버 사용
+* putty 사용
+* nginx/uwsgi 사용하여 상시로 서버 띄워놓기
+* docker 사용, mysql image 사용하여 mysql 연동
+* vscode Database Client JDBC로 mysql database를 vscode로 보기
+* ubuntu 서버의 uwsgi.ini에 database 정보 os.environ.get으로 숨겨두기
+
 ### Git Actions
 ---------------------
 ##### * Django CI로 VSCODE COMMIT시 파이썬 3.8 3.9버전으로 회원가입과 로그인 테스트 후 성공시 CD 진행시키기 자동화
 ##### * Django CD로 aws cloud 서비스로 띄워놓은 ubuntu 서버 접속 후
 ##### * cd /home/ubuntu/insta-ec2 ---> git pull ---> sudo systemctl restart uwsgi로 nginx/uwsgi로 상시 띄워놓은 서버에 자동 적용시키기
 
+### settings.py database 정보 및 Actions 정보
+--------------------
+##### settings
+DATABASES = {
+    
+    'default': {
+        
+        'ENGINE': 'django.db.backends.mysql',
+        
+        'NAME': 'insta',
+        
+        'HOST' : os.environ.get('MYSQL_HOST','localhost'),
+        
+        'USER' : os.environ.get('MYSQL_USER_NAME','admin'),
+        
+        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','default_password'),
+        
+        'PORT' :'3306',
+    
+        'OPTIONS' : {'charset' : 'utf8mb4'},
+
+    }
+
+}
+##### Actions
+  host : ${{ secrets.HOST }}
+  
+  username : ${{ secrets.USERNAME }}
+  
+  key : ${{secrets.KEY}}
+
+  port : 22
+
+host, username,  key 정보 Settings ---> Secrets and variabls ---> actions ---> Repository Secrets에 숨겨두기
