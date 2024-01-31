@@ -2,7 +2,7 @@
 
 ### 기술 스택
 ----------------------
-Python, Django, Mysql, Jquery, Ajax
+Python, Django, Mysql, Jquery, Ajax, html, css
 ### 프로젝트 설명
 ----------------------
 Django를 기반으로 만든 유명한 소셜 네트워크 서비스를 Clone 해보기
@@ -46,7 +46,7 @@ Apps
 * putty 사용
 * nginx/uwsgi 사용하여 상시로 서버 띄워놓기
 * docker 사용, mysql image 사용하여 mysql 연동
-* vscode Database Client JDBC로 mysql database를 vscode로 보기
+* vscode Database Client JDBC로 mysql database를 vscode로 연동
 * ubuntu 서버의 uwsgi.ini에 database 정보 os.environ.get으로 숨겨두기
 
 ### Git Actions
