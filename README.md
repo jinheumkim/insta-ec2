@@ -37,12 +37,14 @@ Apps
 * 피드의 '''누를 시 본인이 누르면 피드 삭제기능, 타인이 누르면 팔로우/언팔로우 기능
 * 각각 유저의 사진 클릭 시 프로필에 접속
 * 유저 검색 기능 구현
+* 피드 이미지 클릭 시 확대, 다시 클릭 시 축소 기능
 
-  
 ##### 프로필
 * 본인 프로필만 프로필 사진 변경 가능
 * 개개인 유저 프로필마다 게시물 수, 팔로워 수, 팔로잉 수 표시
-* 유저 프로필마다 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
+* 유저 프로필마다 내 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
+* 개인의 피드 페이지 구현
+* 각각의 피드 이미지 클릭 시 해당 게시물로 스크롤 자동이동
 
 ### Aws로 ubuntu 서버 사용
 * putty 사용
@@ -50,6 +52,7 @@ Apps
 * docker 사용, mysql image 사용하여 mysql 연동
 * vscode Database Client JDBC로 mysql database를 vscode로 연동
 * ubuntu 서버의 uwsgi.ini에 database 정보 os.environ.get으로 숨겨두기
+* settings_local.py로 메인서버에 개입하지 않고 python manage.py runserver --settings=insta.settings_local로 로컬서버 접속하여 테스트 가능
 
 ### Git Actions
 ---------------------
