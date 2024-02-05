@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-=======
 # Clone Instagram Project
 
 ### 기술 스택
 ----------------------
-Python, Django, Mysql, Jquery, Ajax
+Python, Django, Mysql, Jquery, Ajax, html, css
 ### 프로젝트 설명
 ----------------------
 Django를 기반으로 만든 유명한 소셜 네트워크 서비스를 Clone 해보기
@@ -36,13 +34,63 @@ Apps
 * 피드에 좋아요 기능 구현 및 좋아요 개수 반영
 * 피드에 북마크 기능 ajax로 새로코침 없이 바로 적용 가능
 * 피드에 댓글달기 기능 ajax로 새로고침 없이 컨텐츠 업로드 가능
+* 피드의 '''누를 시 본인이 누르면 피드 삭제기능, 타인이 누르면 팔로우/언팔로우 기능
 * 각각 유저의 사진 클릭 시 프로필에 접속
 * 유저 검색 기능 구현
-  
-##### 프로필
-* 접속한 프로필에만 프로필 사진 변경 기능 구현
-* 개개인 유저 프로필마다 게시물 수, 팔로워 수, 팔로잉 수 표시
-* 유저 프로필마다 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
+* 피드 이미지 클릭 시 확대, 다시 클릭 시 축소 기능
 
-### Git CI CD
->>>>>>> c693b2c60a6dcab6c52b6573bcdc81e0e72aa545
+##### 프로필
+* 본인 프로필만 프로필 사진 변경 가능
+* 개개인 유저 프로필마다 게시물 수, 팔로워 수, 팔로잉 수 표시
+* 유저 프로필마다 내 게시물, 좋아요, 북마크 목록을 피드 이미지로 표시
+* 개인의 피드 페이지 구현
+* 각각의 피드 이미지 클릭 시 해당 게시물로 스크롤 자동이동
+
+### Aws로 ubuntu 서버 사용
+* putty 사용
+* nginx/uwsgi 사용하여 상시로 서버 띄워놓기
+* docker 사용, mysql image 사용하여 mysql 연동
+* vscode Database Client JDBC로 mysql database를 vscode로 연동
+* ubuntu 서버의 uwsgi.ini에 database 정보 os.environ.get으로 숨겨두기
+* settings_local.py로 메인서버에 개입하지 않고 python manage.py runserver --settings=insta.settings_local로 로컬서버 접속하여 테스트 가능
+
+### Git Actions
+---------------------
+##### * Django CI로 VSCODE COMMIT시 파이썬 3.8 3.9버전으로 회원가입과 로그인 테스트 후 성공시 CD 진행시키기 자동화
+##### * Django CD로 aws cloud 서비스로 띄워놓은 ubuntu 서버 접속 후
+##### * cd /home/ubuntu/insta-ec2 ---> git pull ---> sudo systemctl restart uwsgi로 nginx/uwsgi로 상시 띄워놓은 서버에 자동 적용시키기
+
+### settings.py database 정보 및 Actions 정보
+--------------------
+##### settings
+DATABASES = {
+    
+    'default': {
+        
+        'ENGINE': 'django.db.backends.mysql',
+        
+        'NAME': 'insta',
+        
+        'HOST' : os.environ.get('MYSQL_HOST','localhost'),
+        
+        'USER' : os.environ.get('MYSQL_USER_NAME','admin'),
+        
+        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','default_password'),
+        
+        'PORT' :'3306',
+    
+        'OPTIONS' : {'charset' : 'utf8mb4'},
+
+    }
+
+}
+##### Actions
+  host : ${{ secrets.HOST }}
+  
+  username : ${{ secrets.USERNAME }}
+  
+  key : ${{secrets.KEY}}
+
+  port : 22
+
+host, username,  key 정보를    Settings ---> Secrets and variabls ---> actions ---> Repository Secrets에 숨겨두기
