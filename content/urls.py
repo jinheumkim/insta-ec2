@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UploadFeed,Profile,UploadReply,Main,ToggleLike,ToggleBookmark,Follows,FeedDelete,Search_view
+from .views import UploadFeed,Profile,UploadReply,Main,ToggleLike,ToggleBookmark,Follows,FeedDelete,Search_view,UserFeed
 
 urlpatterns = [
     path('upload',UploadFeed.as_view()),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('like',ToggleLike.as_view()),
     path('follow',Follows.as_view()),
     path('delete',FeedDelete.as_view()),
-    path('search',Search_view, name = 'search')
+    path('search',Search_view, name = 'search'),
+    path('feed/<int:id>',UserFeed.as_view(), name = 'feed')
 ]

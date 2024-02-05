@@ -67,19 +67,18 @@
       }
 
 
+
     </style>
   </head>
   <body>
   
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "position: fixed ; width :100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "position: fixed ; width :100%;">
       <div class="container-fluid" style = "justify-content: space-between; flex-wrap: nowrap ; min-width : 1000px">
         <a class="navbar-brand" href="/main">copy instagram</a>
         <input type="button" onclick="location.href='/content/search'" class="form-control me-2" style="width:400px; text-align : left" value="검색" >
             <div style="display: flex;">
               <a class="material-symbols-outlined" href="/main" style="padding-right : 10px; color : black; text-decoration : none">home</a>
-              <span class="material-symbols-outlined" style="padding-right : 10px;">send</span>
-              <span class="material-symbols-outlined" style="padding-right : 10px;">explore</span>
-              <span class="material-symbols-outlined" style="padding-right : 10px;">favorite</span>
+              <span id = "nav_bar_add_box" class="material-symbols-outlined" style="padding-right : 10px; cursor : pointer">add_box</span>
               <div class="dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <div class = "box" style = "width : 25px; height : 25px; ">
@@ -136,7 +135,9 @@
       <div style="display : flex; flex-direction:row; justify-content : left; flex-wrap : wrap; width : 1000px ">
         {% for feed in feed_list %}
           <div style="width:300px; height : 300px; margin : 10px 10px 0px 10px; ">
-            <div><img style = "width:300px; height : 300px; object-fit : cover;" src = "{% get_media_prefix %}{{ feed.image }}"> </div>
+            <a href="{% url 'feed' id=user.id %}#{{forloop.counter0}}">
+              <div><img style = "width:300px; height : 300px; object-fit : cover;" src = "{% get_media_prefix %}{{ feed.image }}"> </div>
+            </a>
           </div>
         {% endfor%}
       </div>
@@ -159,6 +160,55 @@
             <div><img style = "width:300px; height : 300px; object-fit : cover;" src = "{% get_media_prefix %}{{ feed.image }}"> </div>
           </div>
         {% endfor%}
+      </div>
+    </div>
+    
+    <!-- 첫 번째 모달 창 -->
+    <div id = "first_modal" class = "modal_overlay">
+      <div class = "modal_window">
+        <div style = "display : flex; flex-direction : row; justify-content : space-between">
+          <div style = "width : 40px">
+            
+          </div>
+          <div>
+            새 이미지 업로드
+          </div>
+          <div style = "width : 40px">
+            <span class="modal-close material-symbols-outlined" style="cursor: pointer;">close</span>
+          </div>
+        </div>
+        <div class = "img_upload_space" style= "border-top : solid 1px gray; width : 780px; height : 500px;">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 두 번째 모달 창  -->
+    <div id = "second_modal" class = "modal_overlay">
+      <div class = "modal_window">
+        <div style = "display : flex; flex-direction : row; justify-content : space-between">
+          <div style = "width : 40px">
+            
+          </div>
+          <div>
+            새 이미지 업로드
+          </div>
+          <div style = "width : 40px">
+            <span class="modal-close material-symbols-outlined" style="cursor: pointer;">close</span>
+          </div>
+        </div>
+        <div style = "display : flex; flex-direction : row">
+          <div class = "img_upload_space" style= "border-top : solid 1px gray; width : 500px; height : 500px;">
+          </div>
+          <div style = "border-left : solid 1px gray;">
+            <div>
+              <textarea id = "input_feed_content" style = "width : 276px; height : 400px" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <button id = "feed_create_button" type="botton" class="btn btn-primary" style="width : 100%">
+              공유하기
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -200,69 +250,125 @@
         });
       });
 
+      $('.modal-close').click(function(){
+        $('#first_modal').css({
+          complete : function(){
+            location.replace('');
+          }
+        });
 
+        $('#second_modal').css({
+          complete : function(){
+            location.replace('');
+          }
+        });
+      });
+
+      let files;
+
+      $('#nav_bar_add_box').click(function(){
+        window.scrollTo(0,0)
+        $('#first_modal').css({
+          display : 'flex'
+        });
+        $(document.body).css({
+          overflow : 'hidden'
+        });
+      });
+
+
+      $('#feed_create_button').click(function(){
+        alert("업로드 되었습니다.");
         
-        $('.img_upload_space')
-          .on("dragover", dragOver)
-          .on("dragleave", dragOver)
-          .on("drop", uploadFiles);
-  
-        function dragOver(e) {
-          e.stopPropagation();
-          e.preventDefault();
-  
-          console.log(e);
-  
-          if (e.type == "dragover"){
-            $(e.target).css({
-              "background-color" : "black",
-              "outline-offset" : "-20px"
-            });
-          } else {
-            $(e.target).css({
-              "background-color" : "gray",
-              "outline-offset" : "-10px"
-            });
+        let file = files[0];
+        let image = files[0].name;
+        let content = $('#input_feed_content').val();
+        
+        let fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('image', image);
+        fd.append('content', content);
+        
+
+        $.ajax({
+          url : "/content/upload",
+          data : fd,
+          method : "POST",
+          processData : false,
+          contentType : false,
+
+          success : function (data){
+            console.log("성공");
+          },
+          error : function (request, status, error){
+            console.log("에러");
+          },
+          complete : function(){
+            console.log("완료");
+            location.replace('/main');
           }
-        }
-  
-        function uploadFiles(e) {
-          e.stopPropagation();
-          e.preventDefault();
-  
-          e.dataTransfer = e.originalEvent.dataTransfer;
-          files = e.target.files || e.dataTransfer.files;
-          if(files.length > 1) {
-            alert('하나만 올리세요.');
-            return;
-          }
-  
-        if(files[0].type.match(/image.*/)) {
-          $('#first_modal').css({
-            display : 'none'
-          });
-  
-          $('#second_modal').css({
-            display : 'flex'
-          });
-  
-  
-          $('.img_upload_space').css({
-            "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
-            "outline" : "none",
-            "background-size" : "100%",
-            "background-repeat" : "no-repeat",
-            "background-center" : "center"
+
+        });
+          
+      });
+      
+      $('.img_upload_space')
+        .on("dragover", dragOver)
+        .on("dragleave", dragOver)
+        .on("drop", uploadFiles);
+
+      function dragOver(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+
+        if (e.type == "dragover"){
+          $(e.target).css({
+            "background-color" : "black",
+            "outline-offset" : "-20px"
           });
         } else {
-          alert('이미지가 아닙니다.');
-          return;
+          $(e.target).css({
+            "background-color" : "gray",
+            "outline-offset" : "-10px"
+          });
         }
       }
-    
-      $('#button_profile_upload').click(function(){
-        $('#input_fileupload').click();
-      });
+
+      function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        files = e.target.files || e.dataTransfer.files;
+        if(files.length > 1) {
+          alert('하나만 올리세요.');
+          return;
+        }
+
+      if(files[0].type.match(/image.*/)) {
+        $('#first_modal').css({
+          display : 'none'
+        });
+
+        $('#second_modal').css({
+          display : 'flex'
+        });
+
+
+        $('.img_upload_space').css({
+          "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+          "outline" : "none",
+          "background-size" : "100%",
+          "background-repeat" : "no-repeat",
+          "background-center" : "center"
+        });
+      } else {
+        alert('이미지가 아닙니다.');
+        return;
+      }
+    }
 
       function profile_upload(){
           let file = $('#input_fileupload')[0].files[0];
@@ -292,7 +398,7 @@
             },
             complete : function(){
               console.log("완료");
-              location.replace('/content/profile');
+              location.replace('');
             }
   
           });
