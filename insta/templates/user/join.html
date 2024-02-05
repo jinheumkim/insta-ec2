@@ -52,6 +52,8 @@
 
     <!-- Optional JavaScript; choose one of the two! -->
     <script>
+
+      
       $('#join_button').click(function(){
         
         let email = $('#input_email').val();
@@ -76,7 +78,8 @@
             alert('회원가입 성공!');
             location.replace('/user/login');
           },
-          error : function (request, status, error){
+          error : function (xhr, status, error){
+            alert(xhr.responseText)
             console.log("에러");
           },
           complete : function(){
