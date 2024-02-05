@@ -153,31 +153,31 @@ class ToggleLike(APIView):
         feed_id = request.data.get('feed_id', None)
         favorite_text = request.data.get('favorite_text', True)
         
-        # email = request.session.get('email', None)
+        email = request.session.get('email', None)
         
-        # if favorite_text == 'favorite_border':
-        #     Like.objects.create(feed_id = feed_id, is_like = True, email = email)
+        if favorite_text == 'favorite_border':
+            Like.objects.create(feed_id = feed_id, is_like = True, email = email)
             
-        # else :
-        #     Like.objects.filter(feed_id =feed_id, email = email).delete()
+        else :
+            Like.objects.filter(feed_id =feed_id, email = email).delete()
         
         # id 숫자 줄이기
         
-        if favorite_text == 'favorite_border':
-            is_like = True
-        else :
-            is_like = False
+        # if favorite_text == 'favorite_border':
+        #     is_like = True
+        # else :
+        #     is_like = False
             
-        email = request.session.get('email',None)
+        # email = request.session.get('email',None)
         
-        like = Like.objects.filter(feed_id=feed_id , email = email).first()
+        # like = Like.objects.filter(feed_id=feed_id , email = email).first()
         
         
-        if like:
-            like.is_like = is_like
-            like.save()
-        else:
-            Like.objects.create(feed_id=feed_id, is_like=is_like, email = email)
+        # if like:
+        #     like.is_like = is_like
+        #     like.save()
+        # else:
+        #     Like.objects.create(feed_id=feed_id, is_like=is_like, email = email)
         
         return Response(status=200)
     
