@@ -46,7 +46,7 @@ class Join(APIView):
                             nickname = nickname,
                             name = name,
                             password = make_password(password),
-                            profile_image = "default_profile.jpg")
+                            profile_image = "default_profile.png")
                 
                 return Response(status=200)
             except ValidationError as e:
