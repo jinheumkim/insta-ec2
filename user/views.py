@@ -29,6 +29,10 @@ class Join(APIView):
         if User.objects.filter(email = email).exists() == True:
             print('이미 가입된 이메일입니다.')
             return Response('이미 가입된 이메일입니다.', status = 400)
+        
+        if User.objects.filter(nickname = nickname).exists() == True:
+            print('이미 가입된 닉네임입니다.')
+            return Response('이미 가입된 닉네임입니다.', status = 400)
             
         
         if email is not None and password is not None:
