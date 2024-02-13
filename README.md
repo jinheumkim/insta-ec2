@@ -74,11 +74,11 @@ DATABASES = {
         
         'NAME': 'insta',
         
-        'HOST' : os.environ.get('MYSQL_HOST','localhost'),
+        'HOST' : os.environ.get,
         
-        'USER' : os.environ.get('MYSQL_USER_NAME','admin'),
+        'USER' : os.environ.get,
         
-        'PASSWORD' : os.environ.get('MYSQL_PASSWORD','default_password'),
+        'PASSWORD' : os.environ.get,
         
         'PORT' :'3306',
     
