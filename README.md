@@ -95,5 +95,3 @@ DATABASES = {
   key : ${{secrets.KEY}}
 
   port : 22
-
-host, username,  key 정보를    Settings ---> Secrets and variabls ---> actions ---> Repository Secrets에 숨겨두기
